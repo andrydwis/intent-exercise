@@ -21,6 +21,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     private EditText fullname, email, password, confirm_password, homepage, about;
     private Bitmap bitmap;
+    private Uri imageUri;
     private ImageView image_profile;
     private static final String TAG = RegisterActivity.class.getCanonicalName();
 
@@ -48,7 +49,7 @@ public class RegisterActivity extends AppCompatActivity {
         if (requestCode == 1) {
             if (data != null) {
                 try {
-                    Uri imageUri = data.getData();
+                    imageUri = data.getData();
                     bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
                     image_profile.setImageBitmap(bitmap);
                 } catch (IOException e) {
@@ -76,6 +77,7 @@ public class RegisterActivity extends AppCompatActivity {
                 intent.putExtra("CONFIRM_KEY", confirmText);
                 intent.putExtra("HOMEPAGE_KEY", homepageText);
                 intent.putExtra("ABOUT_KEY", aboutText);
+                intent.putExtra("IMAGE_KEY", imageUri.toString());
                 startActivity(intent);
             }else{
                 Toast.makeText(this, "Password and Confirm password must same !",Toast.LENGTH_SHORT).show();
